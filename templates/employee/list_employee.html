@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Employee List</title>
+{% endblock title %}
+
+{% block content %}
+    <h1 style="text-align: center; padding-top: 1rem; padding-bottom: 1rem;">List Employee</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+		<th scope="row">Employee name</th>
+                <th scope="col">Employee code</th>
+                <th scope="col">Employee position</th>
+		<th scope="col" class="text-left">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in Employees %}
+                <tr>
+                    <th scope="row">{{ employee.emp_name }}</th>
+                    <td>{{ employee.emp_code }}</td>
+                    <td>{{ employee.emp_position }}</td>
+                    <td>
+                        <a style="margin-right: 30px;" href="#">Edit</a>
+                        <a style="margin-right: 30px;" href="#">Remove</a>
+                        <a style="margin-right: 30px;" href="{% url 'employee:employee_detail' employee.id %}">Detail</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a href="{% url 'employee:employee_create' %}"><button type="button" class="btn btn-primary">Add New Employee</button></a>
+    </div>
+
+	{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'employee:employee_list' %}?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'employee:employee_list' %}?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}	
+{% endblock content %}
+
+
