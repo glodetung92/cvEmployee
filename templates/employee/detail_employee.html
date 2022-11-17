@@ -4,6 +4,10 @@
 	<title> Employee Detail </title>
 {% endblock title %}
 
+{% block nav-name %}
+	Employee Detail
+{% endblock nav-name %}
+
 {% block content %}
 <h3>{{ emp.emp_name }}</h3>
 <p>{{ emp.emp_code }}</p>
@@ -11,7 +15,7 @@
 
 <ul>
 	<li><a href="{% url 'employee:employee_profile' emp.id %}">Profile</a></li>
-	<li><a href="#">Project</a></li>
-	<li><a href="#">Education</a></li>
+	<li><a href="{% url 'employee:employee_project' emp.id %}">Project</a></li>
+	<li><a href="{% url 'employee:employee_education' emp.id %}">Education</a></li>
 </ul>
 {% endblock content %}

@@ -6,6 +6,9 @@ class Employee(models.Model):
 	emp_code = models.CharField(max_length=50, unique=True)
 	emp_position = models.CharField(max_length=255)
 
+	class Meta:
+		ordering = ('emp_name', 'emp_code')
+
 	def __str__(self):
 		return self.emp_name
 

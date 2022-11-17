@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	<title> Confirm delete employee </title>
+{% endblock title %}
+
+{% block nav-name %}
+	Delete Employee
+{% endblock nav-name %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <p>Do you really want to delete {{ object }} employee?</p>
+    <input type="submit" value="OK">
+</form>
+
+{% endblock content %}

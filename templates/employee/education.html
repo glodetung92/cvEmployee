@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title> Employee Education </title>
+{% endblock title %}
+
+{% block nav-name %}
+	Employee Education
+{% endblock nav-name %}
+
+{% block content %}
+<style>
+	table, th, td {
+  		border:1px solid black;
+	}
+
+	table {
+		width:100%;
+	}
+</style>
+
+<h2> {{ education.emp.emp_name }} </h2> 
+
+<br>
+<br>
+<table>
+  <tr>
+    <th>Period</th>
+    <th>Education</th>
+  </tr>
+{% for e in education %}
+  <tr>
+    <td>{{ e.edu_name }}</td>
+    <td>{{ e.period }}</td>
+  </tr>
+{% endfor %}
+</table>
+
+{% endblock content %}

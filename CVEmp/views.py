@@ -1,19 +1,19 @@
 from django.shortcuts import render
 from .models import Employee, Profile, projects, Education
-from django.views.generic import ListView, CreateView, DetailView
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.http import HttpResponseRedirect, HttpResponseNotFound
+from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 
-# Create your views here.
+# Show list all employees 
 class EmployeeList(ListView):
 	model = Employee
 	template_name = 'employee/list_employee.html'
 	context_object_name = 'Employees'
 	paginate_by = 5
 
-
+# Show employee detail
 class EmployeeDetail(DetailView):
 	model = Employee
 
@@ -25,6 +25,7 @@ class EmployeeDetail(DetailView):
 		return render(request, 'employee/detail_employee.html', context)
 
 
+# Add new employee
 class EmployeeCreate(CreateView):
 	model = Employee
 	fields = "__all__"
@@ -33,7 +34,7 @@ class EmployeeCreate(CreateView):
 	def get_success_url(self):
 		return reverse('employee:employee_list')
 
-
+# Show profile of employee
 class ProfileEmployee(DetailView):
 	model = Profile
 	template = 'employee/profile_employee.html'
@@ -44,4 +45,48 @@ class ProfileEmployee(DetailView):
 			context = { 'profile': profile }
 			return render(request, 'employee/profile_employee.html', context)
 		except ObjectDoesNotExist:
-			return HttpResponseNotFound('<h1>Page not found</h1>')
+			return HttpResponseNotFound('<h1 style="color:red">Page not found</h1><h4>This employee has no profile yet</h4>')
+
+
+# Delete employee
+class EmployeeRemove(DeleteView):
+	model = Employee
+	success_url = reverse_lazy('employee:employee_list')
+
+
+# Update employee
+class EmployeeUpdate(UpdateView):
+	model = Employee
+	fields = "__all__"
+
+	template_name_suffix = '_update_form'
+
+	def get_success_url(self):
+		return reverse('employee:employee_list')
+
+# Show education of employee
+class EducationEmployee(DetailView):
+	model = Education
+	template = 'employee/education.html'
+
+	def get(self, request, *args, **kwargs):
+		try:
+			education = Education.objects.filter(emp__pk=kwargs['pk'])
+			context = { 'education': education }
+			return render(request, 'employee/education.html', context)
+		except ObjectDoesNotExist:
+			return HttpResponseNotFound('<h1 style="color:red">Page not found</h1><h4>This employee has no profile yet</h4>')
+
+
+# Show project of employee
+class ProjectEmployee(DetailView):
+	model = projects
+	template = 'employee/project.html'
+
+	def get(self, request, *args, **kwargs):
+		try:
+			project = projects.objects.filter(emp__pk=kwargs['pk'])
+			context = {'project': project}
+			return render (request, 'employee/project.html', context)
+		except ObjectDoesNotExist:
+			return HttpResponseNotFound('<h1 style="color:red">Page not found</h1><h4>This employee has no profile yet</h4>')

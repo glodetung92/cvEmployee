@@ -5,6 +5,10 @@
 	<title>Employee List</title>
 {% endblock title %}
 
+{% block nav-name %}
+	List Employee
+{% endblock nav-name %}
+
 {% block content %}
     <h1 style="text-align: center; padding-top: 1rem; padding-bottom: 1rem;">List Employee</h1>
 
@@ -24,8 +28,8 @@
                     <td>{{ employee.emp_code }}</td>
                     <td>{{ employee.emp_position }}</td>
                     <td>
-                        <a style="margin-right: 30px;" href="#">Edit</a>
-                        <a style="margin-right: 30px;" href="#">Remove</a>
+						<a style="margin-right: 30px;" href="{% url 'employee:employee_update' employee.id %}">Edit</a>
+                        <a style="margin-right: 30px;" href="{% url 'employee:employee_remove' employee.id %}">Remove</a>
                         <a style="margin-right: 30px;" href="{% url 'employee:employee_detail' employee.id %}">Detail</a>
                     </td>
                 </tr>
