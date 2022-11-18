@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework import viewsets, permissions
+from .serializers import EmployeeSerializer, ProfileSerializer
 
 # Show list all employees 
 class EmployeeList(ListView):
@@ -90,3 +92,19 @@ class ProjectEmployee(DetailView):
 			return render (request, 'employee/project.html', context)
 		else:
 			return HttpResponseNotFound('<h1 style="color:red">Page not found</h1><h4>This employee has no profile yet</h4>')
+
+class EmployeeViewSet(viewsets.ModelViewSet):
+	queryset = Employee.objects.all()
+	serializer_class = EmployeeSerializer
+
+	def get_permissions(self):
+		if self.action == 'list':
+			return [permissions.AllowAny()]
+
+		return [permissions.IsAuthenticated()]
+
+class ProfileViewSet(viewsets.ModelViewSet):
+	queryset = Profile.objects.all()
+	serializer_class = ProfileSerializer
+	permissions = [permissions.IsAuthenticated()]
+

@@ -10,11 +10,12 @@
 
 {% block content %}
 
-<style>
-	ul {
+,<style>ul {
 		list-style-type: none;
 	}
 </style>
+<br>
+<br>
 
 
 <h3>{{ emp.emp_name }}</h3>
@@ -25,9 +26,16 @@
 
 <label> Position:</label>
 <span>{{ emp.emp_position }}</span>
+<br>
+<br>
+<img src="{{ MEDIA_URL }}{{ emp.emp_img }}" alt="{{ emp.emp_name }}" width="200" height="250">
+<br>
+<br>
+br>
 
 <h4> Employee Informations </h4>
 
+<br>
 <ul>
 	<li><a href="{% url 'employee:employee_profile' emp.id %}">Profile</a></li>
 	<li><a href="{% url 'employee:employee_project' emp.id %}">Project</a></li>

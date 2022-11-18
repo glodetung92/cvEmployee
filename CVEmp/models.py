@@ -5,6 +5,8 @@ class Employee(models.Model):
 	emp_name = models.CharField(max_length=100, unique=True)
 	emp_code = models.CharField(max_length=50, unique=True)
 	emp_position = models.CharField(max_length=255)
+	emp_img = models.ImageField(upload_to='employee/%Y/%m', null=True)
+
 
 	class Meta:
 		ordering = ('emp_name', 'emp_code')
