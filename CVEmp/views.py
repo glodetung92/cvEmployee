@@ -70,11 +70,11 @@ class EducationEmployee(DetailView):
 	template = 'employee/education.html'
 
 	def get(self, request, *args, **kwargs):
-		try:
-			education = Education.objects.filter(emp__pk=kwargs['pk'])
+		education = Education.objects.filter(emp__pk=kwargs['pk'])
+		if education.count() > 0:
 			context = { 'education': education }
 			return render(request, 'employee/education.html', context)
-		except ObjectDoesNotExist:
+		else:
 			return HttpResponseNotFound('<h1 style="color:red">Page not found</h1><h4>This employee has no profile yet</h4>')
 
 
@@ -84,9 +84,9 @@ class ProjectEmployee(DetailView):
 	template = 'employee/project.html'
 
 	def get(self, request, *args, **kwargs):
-		try:
-			project = projects.objects.filter(emp__pk=kwargs['pk'])
+		project = projects.objects.filter(emp__pk=kwargs['pk'])
+		if project.count() > 0:
 			context = {'project': project}
 			return render (request, 'employee/project.html', context)
-		except ObjectDoesNotExist:
+		else:
 			return HttpResponseNotFound('<h1 style="color:red">Page not found</h1><h4>This employee has no profile yet</h4>')

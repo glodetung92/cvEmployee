@@ -15,11 +15,16 @@ class Employee(models.Model):
 class Profile(models.Model):
 	address = models.CharField(max_length=500)
 	phone = models.CharField(max_length=12)
-	email = models.EmailField(max_length=100)
+	email = models.EmailField(max_length=100, unique=True)
 	birth = models.DateField()
 	skills = models.CharField(max_length=500, blank=True, null=True)
 
-	emp = models.ForeignKey(Employee, related_name="employee", on_delete=models.CASCADE)
+	emp = models.OneToOneField(
+		Employee,
+		related_name="employee",
+		on_delete=models.CASCADE,
+		primary_key=True
+	)
 
 	def __str__(self):
 		return self.email

@@ -9,13 +9,32 @@
 {% endblock nav-name %}
 
 {% block content %}
-{% if message is None %} 
-	<h3>{{ profile.emp.emp_name }}</h3>
-	<p>{{ profile.address }}</p>
-	<p>{{ profile.phone }}</p>
-	<p>{{ profile.email }}</p>
-	<p>{{ profile.skills }}</p>
-{% else %}
-	<h2>{{ message }}</h2>
-{% endif %}
+
+<style>
+	table, th, td {
+  		border:1px solid black;
+	}
+
+</style>
+
+<h3>{{ profile.emp }}</h3>
+
+<br>
+<br>
+
+<table style="width: 100%;">
+	<tr>
+		<td>Address</td>
+		<td>Email</td>
+		<td>Phone</td>
+		<td>Birth</td>
+	</tr>
+	<tr>
+		<td>{{ profile.address }}</td>
+		<td>{{ profile.email }}</td>
+		<td>{{ profile.phone }}</td>
+		<td>{{ profile.birth }}</td>
+	</tr>
+</table>
+
 {% endblock content %}
