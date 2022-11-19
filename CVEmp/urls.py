@@ -1,18 +1,9 @@
 from django.urls import path, include
-from .views import EmployeeList, EmployeeCreate, EmployeeDetail, ProfileEmployee, EmployeeRemove, EmployeeUpdate,EducationEmployee, ProjectEmployee, EmployeeViewSet, ProfileViewSet
-
-from rest_framework.routers import DefaultRouter
-
-
-router = DefaultRouter()
-router.register('employee', EmployeeViewSet)
-router.register('profile', ProfileViewSet)
-
+from .views import EmployeeList, EmployeeCreate, EmployeeDetail, ProfileEmployee, EmployeeRemove, EmployeeUpdate,EducationEmployee, ProjectEmployee
 
 app_name = 'employee'
 
 urlpatterns = [
-	path('api-auth/', include(router.urls)),
 	# Employee
 	path('', EmployeeList.as_view(), name="employee_list"),
 	path('create/', EmployeeCreate.as_view(), name="employee_create"),
