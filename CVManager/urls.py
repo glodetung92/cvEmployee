@@ -19,6 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from CVEmp.views import EmployeeViewSet,ProfileViewSet
+from django.views.generic.base import TemplateView
+from django.contrib.auth.views import LoginView
 
 
 router = DefaultRouter()
@@ -26,7 +28,9 @@ router.register('employee-api', EmployeeViewSet)
 router.register('profile-api', ProfileViewSet)
 
 urlpatterns = [
-	path('', include(router.urls)),
+	path('', TemplateView.as_view(template_name='home.html'), name='home'),
+	path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
 	path('employee/', include('CVEmp.urls')),
+	path('accounts/', include("django.contrib.auth.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

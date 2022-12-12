@@ -1,0 +1,43 @@
+{% extends "../base.html" %}
+{% load static %}	
+
+
+
+{% block content %}
+
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css">
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+
+    <!-- Login Form -->
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+     <table>
+	<tr>
+    	  <td>{{ form.username.label_tag }}</td>
+    	  <td>{{ form.username }}</td>
+	</tr>
+	<tr>
+    	  <td>{{ form.password.label_tag }}</td>
+    	  <td>{{ form.password }}</td>
+	</tr>
+     </table>
+
+     <input type="submit" value="login">
+     <input type="hidden" name="next" value="{{ next }}"> 
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>
+{% endblock content %}
+
